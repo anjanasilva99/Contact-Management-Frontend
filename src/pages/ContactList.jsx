@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import ConfirmationModal from "../components/ConfirmationModal";
 import "./ContactList.css";
+import config from "../config/config";
 
-const API_URL = "http://localhost:8080/contacts";
+const { API_URL } = config;
 
 const ContactList = () => {
   const [contacts, setContacts] = useState([]);
@@ -145,3 +146,5 @@ const ContactList = () => {
 };
 
 export default ContactList;
+
+

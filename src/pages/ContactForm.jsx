@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import './ContactForm.css';
+import config from "../config/config";
 
-const API_URL = "http://localhost:8080/contacts";
+const { API_URL } = config;
 
 export default function ContactForm() {
   const [contact, setContact] = useState({ name: "", email: "", phone: "" });
