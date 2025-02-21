@@ -126,9 +126,18 @@ export default function ContactForm() {
           {errors.phone && <div className="error-box">{errors.phone}</div>}
         </div>
 
-        <button type="submit" className="btn btn-success">
-          {id ? "Update" : "Add"} Contact
-        </button>
+        <div className="d-flex gap-2">
+          <button type="submit" className="btn btn-success">
+            {id ? "Update" : "Add"} Contact
+          </button>
+          <button 
+            type="button" 
+            className="btn btn-secondary"
+            onClick={() => navigate('/')}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
 
       {/* Custom CSS for error messages */}

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/contacts"; // Update with your backend URL
+const API_URL = "http://localhost:8080/contacts";
 
-export default function ContactList() {
+const ContactList = () => {
   const [contacts, setContacts] = useState([]);
   const [sortOrder, setSortOrder] = useState("asc");
   const [sortedField, setSortedField] = useState(null);
@@ -22,7 +22,6 @@ export default function ContactList() {
       }
     };
 
-    // Debounce search requests
     const timeoutId = setTimeout(() => {
       fetchContacts();
     }, 300);
@@ -30,7 +29,6 @@ export default function ContactList() {
     return () => clearTimeout(timeoutId);
   }, [searchTerm]);
 
-  // Add handleSearch function
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -148,29 +146,28 @@ export default function ContactList() {
             vertical-align: middle;
           }
           .search-container {
-          width: 400px;
-          margin-left: 15px;
-        }
-        
-        .search-input {
-          padding-right: 30px;
-          border-radius: 10px;
-          border: 1px solid #ddd;
-          transition: all 0.3s ease;
-        }
-        
-        .search-input:focus {
-          border-color: #80bdff;
-          box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-          outline: none;
-        }
-
-        .d-flex {
-          display: flex;
-          align-items: center;
-        }
+            width: 400px;
+            margin-left: 15px;
+          }
+          .search-input {
+            padding-right: 30px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+          }
+          .search-input:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+            outline: none;
+          }
+          .d-flex {
+            display: flex;
+            align-items: center;
+          }
         `}
       </style>
     </>
   );
-}
+};
+
+export default ContactList;
