@@ -4,13 +4,17 @@ import config from "../config/config";
 const { API_URL } = config;
 
 export const contactService = {
-  async getAll(searchTerm = "") {
+  async getAll(searchTerm = "", signal) {
     try {
       const response = await axios.get(
-        API_URL + (searchTerm ? `?search=${searchTerm}` : "")
+        API_URL + (searchTerm ? `?search=${searchTerm}` : ""),
+        { signal }
       );
       return response.data.data;
     } catch (error) {
+      if (error.name === "AbortError") {
+        throw error;
+      }
       throw new Error("Failed to fetch contacts");
     }
   },

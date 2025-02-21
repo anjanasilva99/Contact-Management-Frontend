@@ -6,8 +6,15 @@ import ConfirmationModal from "../components/ConfirmationModal";
 import "./ContactList.css";
 
 const ContactList = () => {
-  const { contacts, loading, error, searchTerm, setSearchTerm, setContacts } =
-    useContacts();
+  const {
+    contacts,
+    loading,
+    searchLoading,
+    error,
+    searchTerm,
+    setSearchTerm,
+    setContacts,
+  } = useContacts();
   const [sortOrder, setSortOrder] = useState("asc");
   const [sortedField, setSortedField] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -58,12 +65,26 @@ const ContactList = () => {
           </Link>
           <div className="search-container">
             <input
-              type="text"
+              type="search"
               placeholder="Search by name or email..."
               value={searchTerm}
               onChange={handleSearch}
-              className="form-control search-input"
+              className={`form-control search-input ${
+                searchLoading ? "pe-5" : ""
+              }`}
+              aria-label="Search contacts"
             />
+            {searchLoading && (
+              <div className="position-absolute top-50 end-0 translate-middle-y pe-3">
+                <div
+                  className="spinner-border spinner-border-sm text-primary"
+                  role="status"
+                  style={{ width: "1rem", height: "1rem" }}
+                >
+                  <span className="visually-hidden">Searching...</span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         {contacts.length > 0 ? (

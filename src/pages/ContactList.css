@@ -45,3 +45,25 @@
   padding: 4px 15px;
   margin-right: 25px !important;
 }
+
+
+.contact-list .search-container {
+  max-width: 400px;
+  position: relative;
+}
+
+.contact-list .search-input {
+  padding-right: 2.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.contact-list .search-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  border-color: #80bdff;
+}
+
+@media (max-width: 768px) {
+  .search-container {
+    max-width: 100%;
+  }
+}
