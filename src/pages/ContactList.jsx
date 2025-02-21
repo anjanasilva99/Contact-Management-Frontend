@@ -51,7 +51,7 @@ const ContactList = () => {
 
   return (
     <>
-      <div className="contact-list">
+      <div className="contact-list margin-top">
         <div className="d-flex align-items-center mb-3">
           <Link to="/add" className="btn btn-primary">
             Add Contact
@@ -66,52 +66,60 @@ const ContactList = () => {
             />
           </div>
         </div>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>
-                Email{" "}
-                <button
-                  onClick={handleSort}
-                  className="btn btn-sm btn-link sort-button"
-                  style={{ textDecoration: "none" }}
-                >
-                  {sortedField === "email"
-                    ? sortOrder === "asc"
-                      ? "↑"
-                      : "↓"
-                    : "↕"}
-                </button>
-              </th>
-              <th>Phone</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {contacts.map((contact) => (
-              <tr key={contact.id}>
-                <td>{contact.name}</td>
-                <td>{contact.email}</td>
-                <td>{contact.phone}</td>
-                <td>
-                  <Link
-                    to={`/edit/${contact.id}`}
-                    className="btn btn-warning btn-sm me-2"
-                  >
-                    Edit
-                  </Link>
+        {contacts.length > 0 ? (
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>
+                  Email{" "}
                   <button
-                    onClick={() => handleDeleteClick(contact.id)}
-                    className="btn btn-danger btn-sm"
+                    onClick={handleSort}
+                    className="btn btn-sm btn-link sort-button"
+                    style={{ textDecoration: "none" }}
                   >
-                    Delete
+                    {sortedField === "email"
+                      ? sortOrder === "asc"
+                        ? "↑"
+                        : "↓"
+                      : "↕"}
                   </button>
-                </td>
+                </th>
+                <th>Phone</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {contacts.map((contact) => (
+                <tr key={contact.id}>
+                  <td>{contact.name}</td>
+                  <td>{contact.email}</td>
+                  <td>{contact.phone}</td>
+                  <td>
+                    <Link
+                      to={`/edit/${contact.id}`}
+                      className="btn btn-warning btn-sm me-2"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      onClick={() => handleDeleteClick(contact.id)}
+                      className="btn btn-danger btn-sm"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className="alert alert-info text-center" role="alert">
+            {searchTerm
+              ? `No contacts found matching "${searchTerm}"`
+              : "No contacts available. Click 'Add Contact' to create one."}
+          </div>
+        )}
         <ConfirmationModal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
@@ -125,5 +133,6 @@ const ContactList = () => {
 };
 
 export default ContactList;
+
 
 

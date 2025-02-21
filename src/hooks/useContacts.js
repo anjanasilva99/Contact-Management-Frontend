@@ -3,7 +3,7 @@ import { contactService } from "../services/contactService";
 
 export const useContacts = () => {
   const [contacts, setContacts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -11,22 +11,26 @@ export const useContacts = () => {
     try {
       setLoading(true);
       const data = await contactService.getAll(searchTerm);
-      setContacts(data);
+      setContacts(data || []);
       setError(null);
     } catch (err) {
       setError(err.message);
+      setContacts([]);
     } finally {
       setLoading(false);
     }
   }, [searchTerm]);
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      fetchContacts();
-    }, 300);
+    const timeoutId = setTimeout(
+      () => {
+        fetchContacts();
+      },
+      searchTerm ? 300 : 0
+    );
 
     return () => clearTimeout(timeoutId);
-  }, [fetchContacts]);
+  }, [fetchContacts, searchTerm]);
 
   return {
     contacts,
