@@ -146,7 +146,7 @@ export default function ContactForm() {
           <div className="d-flex gap-2">
             <button
               type="submit"
-              className="btn btn-success btn-color"
+              className="btn btn-primary"
               disabled={loading}
             >
               {loading ? (

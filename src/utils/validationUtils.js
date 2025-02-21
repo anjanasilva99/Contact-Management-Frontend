@@ -1,7 +1,6 @@
 // Regular expressions for validation
 const PATTERNS = {
-  // Allow international names with accents, spaces, hyphens, and apostrophes
-  NAME: /^[\p{L}\s'-]{2,50}$/u,
+  NAME: /^.{3,}$/,
 
   // RFC 5322 compliant email regex
   EMAIL:
@@ -15,8 +14,7 @@ const PATTERNS = {
 const MESSAGES = {
   NAME: {
     REQUIRED: "Name is required.",
-    INVALID:
-      "Name should be 2-50 characters and contain only letters, spaces, hyphens, and apostrophes.",
+    INVALID: "Name must be at least 3 characters long.",
   },
   EMAIL: {
     REQUIRED: "Email is required.",
