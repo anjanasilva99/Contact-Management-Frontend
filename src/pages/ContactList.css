@@ -40,3 +40,10 @@
 .margin-top {
   margin-top: 40px;
 }
+
+.contact-list .btn-color {
+  background-color: #0a58ca;
+  padding: 4px 15px;
+  color: #fff;
+  margin-right: 25px !important;
+}

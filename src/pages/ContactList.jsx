@@ -98,7 +98,7 @@ const ContactList = () => {
                   <td>
                     <Link
                       to={`/edit/${contact.id}`}
-                      className="btn btn-warning btn-sm me-2"
+                      className="btn btn-color btn-sm me-2"
                     >
                       Edit
                     </Link>
@@ -133,6 +133,7 @@ const ContactList = () => {
 };
 
 export default ContactList;
+
 
 
 
