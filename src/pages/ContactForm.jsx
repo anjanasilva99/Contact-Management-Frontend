@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import './ContactForm.css';
 import config from "../config/config";
+import { validateContact } from "../utils/validationUtils";
 
 const { API_URL } = config;
 
@@ -35,27 +36,9 @@ export default function ContactForm() {
 
   // Validate form fields
   const validateForm = () => {
-    let newErrors = {};
-
-    // Name validation
-    if (!contact.name.trim()) {
-      newErrors.name = "Name is required.";
-    }
-
-    // Email validation
-    if (!contact.email.trim()) {
-      newErrors.email = "Email is required.";
-    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(contact.email)) {
-      newErrors.email = "Invalid email format.";
-    }
-
-    // Phone validation (optional but must be valid if provided)
-    if (contact.phone && !/^\d{10}$/.test(contact.phone)) {
-      newErrors.phone = "Phone number must be 10 digits.";
-    }
-
+    const { isValid, errors: newErrors } = validateContact(contact);
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Return true if no errors
+    return isValid;
   };
 
   // Handle form submit

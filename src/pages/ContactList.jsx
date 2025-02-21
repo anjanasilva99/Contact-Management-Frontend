@@ -1,53 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { useContacts } from "../hooks/useContacts";
+import { contactService } from "../services/contactService";
 import ConfirmationModal from "../components/ConfirmationModal";
 import "./ContactList.css";
-import config from "../config/config";
-
-const { API_URL } = config;
 
 const ContactList = () => {
-  const [contacts, setContacts] = useState([]);
+  const { contacts, loading, error, searchTerm, setSearchTerm, setContacts } =
+    useContacts();
   const [sortOrder, setSortOrder] = useState("asc");
   const [sortedField, setSortedField] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
-
-  useEffect(() => {
-    const fetchContacts = async () => {
-      try {
-        const response = await axios.get(
-          API_URL + (searchTerm ? `?search=${searchTerm}` : "")
-        );
-        setContacts(response.data.data);
-      } catch (error) {
-        console.error("Error fetching contacts:", error);
-      }
-    };
-
-    const timeoutId = setTimeout(() => {
-      fetchContacts();
-    }, 300);
-
-    return () => clearTimeout(timeoutId);
-  }, [searchTerm]);
-
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
 
   const handleSort = () => {
     const sortedContacts = [...contacts].sort((a, b) => {
       const emailA = a.email.toLowerCase();
       const emailB = b.email.toLowerCase();
-
-      if (sortOrder === "asc") {
-        return emailA.localeCompare(emailB);
-      } else {
-        return emailB.localeCompare(emailA);
-      }
+      return sortOrder === "asc"
+        ? emailA.localeCompare(emailB)
+        : emailB.localeCompare(emailA);
     });
 
     setContacts(sortedContacts);
@@ -60,15 +32,22 @@ const ContactList = () => {
     setModalOpen(true);
   };
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   const handleDeleteConfirm = async () => {
     try {
-      await axios.delete(`${API_URL}/${deleteId}`);
+      await contactService.delete(deleteId);
       setContacts(contacts.filter((contact) => contact.id !== deleteId));
       setModalOpen(false);
     } catch (error) {
       console.error("Error deleting contact:", error);
     }
   };
+
+  if (loading) return <div className="text-center mt-4">Loading...</div>;
+  if (error) return <div className="alert alert-danger mt-4">{error}</div>;
 
   return (
     <>
