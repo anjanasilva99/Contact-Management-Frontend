@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import './ContactForm.css';
 
 const API_URL = "http://localhost:8080/contacts";
 
@@ -86,6 +87,7 @@ export default function ContactForm() {
   };
 
   return (
+    <div className="contact-form">
     <div className="card p-4">
       <h4>{id ? "Edit Contact" : "Add Contact"}</h4>
       <form onSubmit={handleSubmit} noValidate>
@@ -139,21 +141,7 @@ export default function ContactForm() {
           </button>
         </div>
       </form>
-
-      {/* Custom CSS for error messages */}
-      <style>
-        {`
-          .error-box {
-            background-color: #ffdddd;
-            color: #d8000c;
-            padding: 20px;
-            border-radius: 5px;
-            margin-top: 5px;
-            font-size: 14px;
-            font-weight: bold;
-          }
-        `}
-      </style>
+      </div>
     </div>
   );
 }

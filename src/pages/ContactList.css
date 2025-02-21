@@ -1,0 +1,39 @@
+.contact-list .btn-link {
+  padding: 2px 6px;
+  vertical-align: baseline;
+  color: #666;
+  font-weight: bold;
+}
+.contact-list .btn-link:hover {
+  color: #333;
+}
+.contact-list .sort-button {
+  font-size: 1.2rem;
+  margin-left: 5px;
+  transition: transform 0.2s;
+}
+.contact-list .sort-button:hover {
+  transform: scale(1.2);
+}
+.contact-list th {
+  vertical-align: middle;
+}
+.contact-list .search-container {
+  width: 400px;
+  margin-left: 15px;
+}
+.contact-list .search-input {
+  padding-right: 30px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+}
+.contact-list .search-input:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+.contact-list .d-flex {
+  display: flex;
+  align-items: center;
+}
